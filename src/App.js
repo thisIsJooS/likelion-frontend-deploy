@@ -3,6 +3,8 @@ import "./App.css";
 import "./index.css";
 
 function App() {
+  const arr = [];
+
   const members = {
     서채연: "대표",
     주승우: "부대표",
@@ -36,15 +38,6 @@ function App() {
     유예지: "Back-End",
   };
 
-  // 배열을 섞는 함수
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-  }
-
   const [selectedMember, setSelectedMember] = useState({
     name: "",
     position: "",
@@ -57,14 +50,32 @@ function App() {
 
   const selectRandomMember = () => {
     const memberKeys = Object.keys(members);
-    const shuffledMemberKeys = shuffleArray(memberKeys);
     const randomVal = Math.random();
     const randomIndex = Math.floor(randomVal * 30);
 
-    const selectedName = shuffledMemberKeys[randomIndex];
+    const selectedName = memberKeys[randomIndex];
     const selectedPosition = members[selectedName];
 
     setSelectedMember({ name: selectedName, position: selectedPosition });
+
+    //   // 테스트----
+    //   // API 요청 주소
+    //   const apiUrl = `http://localhost:8080/get-rand?i=${randomIndex}`;
+
+    //   // fetch 함수를 사용하여 API 요청 보내기
+    //   fetch(apiUrl)
+    //     .then((response) => {
+    //       if (!response.ok) {
+    //         throw new Error(`HTTP error! Status: ${response.status}`);
+    //       }
+    //       return response.json(); // JSON 형태로 응답 받기
+    //     })
+    //     .then((data) => {
+    //       console.log("API 응답:", data);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error:", error);
+    //     });
   };
 
   return (
